@@ -47,3 +47,13 @@ WHERE row_num <= 2;
 ```
 
 ![05_top_n](https://user-images.githubusercontent.com/23521087/105503736-3e653700-5cc7-11eb-9ddf-9a89d93841bc.png)
+
+## tips
+### TopN algorithm [Optimize the TopN algorithm](https://www.alibabacloud.com/help/en/flink/recommended-flink-sql-practices#section-b0v-rga-gqc)
+If the input streams of TopN are static streams (such as source), TopN supports only one algorithm: AppendRank. If the input streams of TopN are dynamic streams (such as streams that are processed by using the AGG or JOIN function), TopN supports the following three algorithms in descending order of performance: UpdateFastRank, UnaryUpdateRank, and RetractRank. The name of the algorithm used is contained in the node name in the topology.
+
+- UpdateFastRank is the optimal algorithm.
+The following two conditions must be met if you want to use this algorithm:
+1. The input streams must contain the primary key information, such as ORDER BY AVG.
+2. The values of the fields or functions in the ORDER BY clause are updated monotonically in the opposite order of sorting. For example, you can define the ORDER BY clause as ORDER BY COUNT, ORDER BY COUNT_DISTINCT, or ORDER BY SUM (positive) DESC. 
+> ps:topN语句中 order by 后面的字段一定要用AVG函数生成的字段
