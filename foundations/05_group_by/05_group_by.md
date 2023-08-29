@@ -10,6 +10,8 @@ A `GROUP BY` on a streaming table produces an updating result, so you will see t
 
 > As an exercise, you can play around with other standard SQL aggregate functions (e.g. `SUM`,`AVG`,`MIN`,`MAX`).
 
+[upsert-kafka 参考](https://cwiki.apache.org/confluence/display/Flink/FLIP-149%3A+Introduce+the+upsert-kafka+Connector)
+- upsert-kafka一定要有key值，否则flink sql读取不到数据
 ## Script
 
 ```sql
